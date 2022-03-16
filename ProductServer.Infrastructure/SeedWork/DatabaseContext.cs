@@ -1,18 +1,17 @@
 ﻿using ProductServer.Domain.SeedWork;
-using ProductServer.Infrastructure.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ProductServer.Infrastructure.Repositories
+namespace ProductServer.Infrastructure.SeedWork
 {
     public class DatabaseContext : DbContext, IUnitOfWork
     {
         private readonly IDomainEventsDispatcher domainEventsDispatcher;
 
-        #pragma warning disable CS8618
+#pragma warning disable CS8618
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) { }
-        #pragma warning restore CS8618
+#pragma warning restore CS8618
 
         [ActivatorUtilitiesConstructor]
         public DatabaseContext(DbContextOptions<DatabaseContext> options, IDomainEventsDispatcher domainEventsDispatcher)
