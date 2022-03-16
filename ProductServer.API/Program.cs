@@ -1,25 +1,54 @@
-var builder = WebApplication.CreateBuilder(args);
+using NLog;
+using NLog.Web;
+using ProductServer;
+using ProductServer.Application;
+using ProductServer.Infrastructure;
+using ProductServer.Infrastructure.Bootstrap;
 
-// Add services to the container.
+Logger logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    logger.Info($"STARTING Product Service VERSION {typeof(Program).Assembly.GetName().Version}");
+    
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+    
+    // NLog
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
+    
+    builder.Services.AddApplicationLayer();
+    builder.Services.AddInfrastructureLayer(builder.Configuration, builder.Environment);
+    builder.Services.AddPresentationLayer();
+    
+    builder.Services.AddHostedService<DatabaseBootstrap>();
+    
+    WebApplication app = builder.Build();
+    
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+    
+    app.UseHttpsRedirection();
+    
+    app.UseAuthorization();
+    
+    app.MapControllers();
+    
+    app.Run();
+}
+catch (Exception ex)
+{  
+    logger.Error(ex, "STOPPED PROGRAM BECAUSE OF EXCEPTION" + Environment.NewLine);
+        throw;
+}
+finally
+{
+    LogManager.Shutdown();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+// Expose presentation starting point assembly
+namespace ProductServer
+{ public partial class Program { } }
