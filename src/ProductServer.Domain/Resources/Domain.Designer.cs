@@ -59,5 +59,14 @@ namespace ProductServer.Domain.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product state with id: {1} not found.
+        /// </summary>
+        public static string ProductStateNotFound {
+            get {
+                return ResourceManager.GetString("ProductStateNotFound", resourceCulture);
+            }
+        }
     }
 }
