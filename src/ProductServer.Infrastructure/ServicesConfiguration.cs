@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductServer.Domain.Aggregates.Product;
 using ProductServer.Domain.SeedWork;
+using ProductServer.Infrastructure.Repositories;
 using ProductServer.Infrastructure.SeedWork;
 
 namespace ProductServer.Infrastructure
@@ -13,26 +15,27 @@ namespace ProductServer.Infrastructure
         {
             services.ConfigureOptions(configuration);
 
+            services.ConfigureDatabase(configuration, environment);
+
             services.AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>();
 
-            services.AddDataBaseContext(configuration, environment);
-
-            services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
-
-            services.AddScoped<IUnitOfWork>(provider => provider.GetService<DatabaseContext>()!);
+            services.AddRepositories();
 
             return services;
         }
 
-        private static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
+        private static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IProductRepository, ProductRepository>();
+        }
+
+        private static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<SqlServerOptions>(
                 configuration.GetSection(SqlServerOptions.ConfigurationKey).Bind);
-
-            return services;
         }
 
-        private static IServiceCollection AddDataBaseContext(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
+        private static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
             string? assemblyName = typeof(DatabaseContext).Assembly.GetName().Name;
 
@@ -56,7 +59,9 @@ namespace ProductServer.Infrastructure
                 }
             });
 
-            return services;
+            services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
+
+            services.AddScoped<IUnitOfWork>(provider => provider.GetService<DatabaseContext>()!);
         }
     }
 }
