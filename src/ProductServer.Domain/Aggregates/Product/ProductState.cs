@@ -12,7 +12,7 @@ namespace ProductServer.Domain.Aggregates.Product
 
         public static ProductState GetById(int id) => id switch 
         { 
-            1 => Suspended, 
+            1 => Enabled, 
             2 => Suspended,
             3 => Disabled,
             _ => throw new ArgumentOutOfRangeException(string.Format(Resources.Domain.ProductStateNotFound, id))

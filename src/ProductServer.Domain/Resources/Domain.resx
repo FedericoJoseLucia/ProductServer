@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DenominationIsEmpty" xml:space="preserve">
+    <value>Denomination is empty</value>
+  </data>
+  <data name="PriceIsLessThanZero" xml:space="preserve">
+    <value>Price is less than zero</value>
+  </data>
   <data name="ProductStateNotFound" xml:space="preserve">
-    <value>Product state with id: {1} not found</value>
+    <value>Product state with id: {0} not found</value>
   </data>
 </root>
