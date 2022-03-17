@@ -59,5 +59,32 @@ namespace ProductServer.Domain.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denomination is empty.
+        /// </summary>
+        public static string DenominationIsEmpty {
+            get {
+                return ResourceManager.GetString("DenominationIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price is less than zero.
+        /// </summary>
+        public static string PriceIsLessThanZero {
+            get {
+                return ResourceManager.GetString("PriceIsLessThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product state with id: {0} not found.
+        /// </summary>
+        public static string ProductStateNotFound {
+            get {
+                return ResourceManager.GetString("ProductStateNotFound", resourceCulture);
+            }
+        }
     }
 }

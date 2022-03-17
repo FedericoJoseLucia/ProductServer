@@ -1,6 +1,6 @@
-﻿using ProductServer.Domain.SeedWork;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ProductServer.Domain.SeedWork;
 
 namespace ProductServer.Infrastructure.SeedWork
 {
@@ -8,10 +8,10 @@ namespace ProductServer.Infrastructure.SeedWork
     {
         private readonly IDomainEventsDispatcher domainEventsDispatcher;
 
-#pragma warning disable CS8618
+        #pragma warning disable CS8618
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) { }
-#pragma warning restore CS8618
+        #pragma warning restore CS8618
 
         [ActivatorUtilitiesConstructor]
         public DatabaseContext(DbContextOptions<DatabaseContext> options, IDomainEventsDispatcher domainEventsDispatcher)
@@ -19,6 +19,8 @@ namespace ProductServer.Infrastructure.SeedWork
         {
             this.domainEventsDispatcher = domainEventsDispatcher;
         }
+
+        public DbSet<Domain.Aggregates.Product.Product> Products => Set<Domain.Aggregates.Product.Product>();
 
         public new async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
