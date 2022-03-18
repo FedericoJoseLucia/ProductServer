@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductServer.API.Models;
 using ProductServer.Application.Commands.CreateProduct;
 using ProductServer.Application.Commands.UpdateProduct;
+using ProductServer.Application.Queries.Product;
 
 namespace ProductServer.API.Controllers
 {
@@ -56,6 +57,24 @@ namespace ProductServer.API.Controllers
                 return Ok(response);
 
             return BadRequest(response);
+        }
+
+        [HttpPut(nameof(GetById))]
+        [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)]
+        [Produces(System.Net.Mime.MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ProductDto>> GetById([FromQuery] Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetProductByIdQuery(id);
+
+            var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
+
+            if(response is null)
+                return NotFound();
+
+            return Ok(response);
         }
     }
 }

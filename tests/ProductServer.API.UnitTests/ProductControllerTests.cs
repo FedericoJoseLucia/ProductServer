@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProductServer.API.Controllers;
 using ProductServer.API.Models;
+using ProductServer.Application.Queries.Product;
 using ProductServer.Application.SeedWork;
 using System;
 using System.Threading;
@@ -17,6 +18,7 @@ namespace ProductServer.API.UnitTests
         private static readonly Guid id = new("D84B82A5-7037-467C-A939-D39D5AE5CAE8");
         private const string denomination = "test_product";
         private static readonly decimal price = 123;
+        private const int stateId = 1;
 
         [Fact]
         public async Task Create_ShouldSucceed()
@@ -98,7 +100,46 @@ namespace ProductServer.API.UnitTests
             requestResult.Errors.Should().OnlyContain(x => x == error);
         }
 
-        private static ISender GetMockedMediatrInstanceWithCustomResult<TResult>(TResult result) where TResult : class
+        [Fact]
+        public async Task GetById_ShouldSucceed()
+        {
+            // Arrange
+            ProductDto dto = new(id, denomination, price, (ProductDto.ProductState)stateId);
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(dto);
+            ProductController controller = new(mediator);
+
+            // Act
+            var result = await controller.GetById(id, CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<ProductDto>>(result);
+            var objectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            var productFound = Assert.IsType<ProductDto>(objectResult.Value);
+
+            productFound.Should().NotBeNull();
+            productFound.Id.Should().Be(id);
+            productFound.Denomination.Should().Be(denomination);
+            productFound.Price.Should().Be(price);
+            productFound.State.Should().Be((ProductDto.ProductState)stateId);
+        }
+
+        [Fact]
+        public async Task GetById_ShouldFail()
+        {
+            // Arrange
+            ProductDto? dto = null;
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(dto);
+            ProductController controller = new(mediator);
+
+            // Act
+            var result = await controller.GetById(Guid.NewGuid(), CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<ProductDto>>(result);
+            Assert.IsType<NotFoundResult>(actionResult.Result);
+        }
+
+        private static ISender GetMockedMediatrInstanceWithCustomResult<TResult>(TResult result) where TResult : class?
         {
             Mock<ISender> mediator = new();
             mediator.Setup(x => x.Send(It.IsAny<IRequest<TResult>>(), It.IsAny<CancellationToken>())).ReturnsAsync(result);
