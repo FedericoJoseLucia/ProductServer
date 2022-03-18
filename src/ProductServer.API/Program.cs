@@ -1,6 +1,7 @@
 using NLog;
 using NLog.Web;
 using ProductServer;
+using ProductServer.API.Middleware;
 using ProductServer.Application;
 using ProductServer.Infrastructure;
 using ProductServer.Infrastructure.Bootstrap;
@@ -36,7 +37,9 @@ try
     app.UseAuthorization();
     
     app.MapControllers();
-    
+
+    app.UseMiddleware<ExceptionMiddleware>();
+
     app.Run();
 }
 catch (Exception ex)

@@ -4,32 +4,32 @@ using System.Diagnostics;
 
 namespace ProductServer.Application.Behaviors
 {
-    public class StopwatchLoggingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult>
-    where TRequest : IRequest<TResult>
+    public class StopwatchLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
     {
-        private readonly ILogger<StopwatchLoggingBehavior<TRequest, TResult>> logger;
+        private readonly ILogger<StopwatchLoggingBehavior<TRequest, TResponse>> logger;
 
-        public StopwatchLoggingBehavior(ILogger<StopwatchLoggingBehavior<TRequest, TResult>> logger)
+        public StopwatchLoggingBehavior(ILogger<StopwatchLoggingBehavior<TRequest, TResponse>> logger)
         {
             this.logger = logger;
         }
 
-        public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            TResult result = await next().ConfigureAwait(false);
+            TResponse response = await next().ConfigureAwait(false);
 
             stopwatch.Stop();
 
-            LogCommandExecutionTime(stopwatch.ElapsedMilliseconds);
+            LogRequestExecutionTime(stopwatch.ElapsedMilliseconds);
 
-            return result;
+            return response;
         }
 
-        private void LogCommandExecutionTime(long miliseconds)
+        private void LogRequestExecutionTime(long miliseconds)
         {
-            logger.LogDebug("COMMAND {commandName} FINISHED RUNNING; TIME TAKEN: {@miliseconds}", typeof(TRequest).Name, miliseconds);
+            logger.LogDebug("REQUEST {requestName} FINISHED RUNNING; TIME TAKEN: {@miliseconds}", typeof(TRequest).Name, miliseconds);
         }
     }
 }
