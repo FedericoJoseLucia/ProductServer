@@ -120,4 +120,7 @@
   <data name="ProductExists" xml:space="preserve">
     <value>Product already exists</value>
   </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product was not found</value>
+  </data>
 </root>
