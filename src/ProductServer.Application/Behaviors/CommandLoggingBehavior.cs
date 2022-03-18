@@ -4,22 +4,22 @@ using ProductServer.Application.SeedWork;
 
 namespace ProductServer.Application.Behaviors
 {
-    public class CommandLoggingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
-        where TRequest : IRequest<TResult>
-        where TResult : ICommandResult
+    public class CommandLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, CommandResult>
+        where TRequest : class, ICommand
+        where TResponse : CommandResult
     {
-        private readonly ILogger<CommandLoggingBehavior<TRequest, TResult>> logger;
+        private readonly ILogger<CommandLoggingBehavior<TRequest, TResponse>> logger;
 
-        public CommandLoggingBehavior(ILogger<CommandLoggingBehavior<TRequest, TResult>> logger)
+        public CommandLoggingBehavior(ILogger<CommandLoggingBehavior<TRequest, TResponse>> logger)
         {
             this.logger = logger;
         }
 
-        public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
+        public async Task<CommandResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<CommandResult> next)
         {
             LogCommandHandling(request);
 
-            TResult result = await next().ConfigureAwait(false);
+            CommandResult result = await next().ConfigureAwait(false);
 
             LogCommandHandled(request, result);
 
@@ -31,12 +31,12 @@ namespace ProductServer.Application.Behaviors
             logger.LogDebug("HANDLING COMMAND {commandName}; PARAMETER: {@commandData}", typeof(TRequest).Name, request);
         }
 
-        private void LogCommandHandled(TRequest request, TResult result)
+        private void LogCommandHandled(TRequest request, CommandResult result)
         {
             if (result.IsSuccess)
                 logger.LogInformation("COMMAND {commandName} HANDLED SUCCESSFULLY", typeof(TRequest).Name);
             else
-                logger.LogError("COMMAND {commandName} HANDLED WITH ERROR; PARAMETER: {@commandData}; RESULT MESSAGE: {@commandResultMessage}", typeof(TRequest).Name, request, result.Message);
+                logger.LogError("COMMAND {commandName} HANDLED WITH ERRORS; PARAMETER: {@commandData}; ERRORS: {@errors}", typeof(TRequest).Name, request, result.Errors);
         }
     }
 }

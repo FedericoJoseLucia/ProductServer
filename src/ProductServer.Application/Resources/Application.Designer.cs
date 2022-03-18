@@ -59,5 +59,14 @@ namespace ProductServer.Application.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product already exists.
+        /// </summary>
+        internal static string ProductExists {
+            get {
+                return ResourceManager.GetString("ProductExists", resourceCulture);
+            }
+        }
     }
 }

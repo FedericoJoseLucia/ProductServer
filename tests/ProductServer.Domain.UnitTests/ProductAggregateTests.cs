@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ProductServer.Domain.UnitTests
 {
-    public class ProductTests
+    public class ProductAggregateTests
     {
         private static readonly Guid id = new("D84B82A5-7037-467C-A939-D39D5AE5CAE8");
         private const string denomination = "test_product";
