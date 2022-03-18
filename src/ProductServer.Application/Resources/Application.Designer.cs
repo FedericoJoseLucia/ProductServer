@@ -68,5 +68,14 @@ namespace ProductServer.Application.Resources {
                 return ResourceManager.GetString("ProductExists", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product was not found.
+        /// </summary>
+        internal static string ProductNotFound {
+            get {
+                return ResourceManager.GetString("ProductNotFound", resourceCulture);
+            }
+        }
     }
 }

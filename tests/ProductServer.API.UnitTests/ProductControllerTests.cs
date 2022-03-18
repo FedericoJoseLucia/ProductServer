@@ -58,6 +58,46 @@ namespace ProductServer.API.UnitTests
             requestResult.Errors.Should().OnlyContain(x => x == error);
         }
 
+        [Fact]
+        public async Task Update_ShouldSucceed()
+        {
+            // Arrange
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(CommandResult.Success());
+            ProductController controller = new(mediator);
+            UpdateProductRequest request = new() { Id = id, Denomination = denomination, Price = price };
+
+            // Act
+            var result = await controller.Update(request, CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<RequestResult>>(result);
+            var objectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            var requestResult = Assert.IsType<RequestResult>(objectResult.Value);
+
+            requestResult.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Update_ShouldFail()
+        {
+            // Arrange
+            string error = "error";
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(CommandResult.Error(error));
+            ProductController controller = new(mediator);
+            UpdateProductRequest request = new() { Id = id, Denomination = denomination, Price = price };
+
+            // Act
+            var result = await controller.Update(request, CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<RequestResult>>(result);
+            var objectResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);
+            var requestResult = Assert.IsType<RequestResult>(objectResult.Value);
+            
+            requestResult.IsSuccess.Should().BeFalse();
+            requestResult.Errors.Should().OnlyContain(x => x == error);
+        }
+
         private static ISender GetMockedMediatrInstanceWithCustomResult<TResult>(TResult result) where TResult : class
         {
             Mock<ISender> mediator = new();
