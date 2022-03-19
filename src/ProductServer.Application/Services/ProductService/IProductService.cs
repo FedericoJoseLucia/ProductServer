@@ -1,6 +1,6 @@
-﻿namespace ProductServer.Application.Queries.Product
+﻿namespace ProductServer.Application.Services.ProductService
 {
-    public interface IProductQueries
+    public interface IProductService
     {
         Task<bool> AnyByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<ProductDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken);

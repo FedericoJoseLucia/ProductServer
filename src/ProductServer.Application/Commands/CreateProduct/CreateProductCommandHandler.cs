@@ -1,5 +1,5 @@
-﻿using ProductServer.Application.Queries.Product;
-using ProductServer.Application.SeedWork;
+﻿using ProductServer.Application.SeedWork;
+using ProductServer.Application.Services.ProductService;
 using ProductServer.Domain.Aggregates.Product;
 
 namespace ProductServer.Application.Commands.CreateProduct
@@ -7,17 +7,17 @@ namespace ProductServer.Application.Commands.CreateProduct
     internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
     {
         private readonly IProductRepository productRepository;
-        private readonly IProductQueries productQueries;
+        private readonly IProductService productService;
 
-        public CreateProductCommandHandler(IProductRepository productRepository, IProductQueries productQueries)
+        public CreateProductCommandHandler(IProductRepository productRepository, IProductService productService)
         {
             this.productRepository = productRepository;
-            this.productQueries = productQueries;
+            this.productService = productService;
         }
 
         public async Task<CommandResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            bool exists = await productQueries.AnyByIdAsync(request.Id, cancellationToken).ConfigureAwait(false);
+            bool exists = await productService.AnyByIdAsync(request.Id, cancellationToken).ConfigureAwait(false);
 
             if (exists)
                 return CommandResult.Error(Resources.Application.ProductExists);

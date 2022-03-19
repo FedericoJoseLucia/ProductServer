@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductServer.Application.Queries.Product;
+using ProductServer.Application.Services.ProductService;
 using ProductServer.Infrastructure.SeedWork;
 
-namespace ProductServer.Infrastructure.Queries
+namespace ProductServer.Infrastructure.Services
 {
-    internal class ProductQueries : IProductQueries
+    internal class ProductService : IProductService
     {
         private readonly IDbContextFactory<DatabaseContext> dbContextFactory;
 
-        public ProductQueries(IDbContextFactory<DatabaseContext> dbContextFactory)
+        public ProductService(IDbContextFactory<DatabaseContext> dbContextFactory)
         {
             this.dbContextFactory = dbContextFactory;
         }

@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProductServer.Application.Queries.Product;
+using ProductServer.Application.Services.ProductService;
 using ProductServer.Domain.Aggregates.Product;
 using ProductServer.Domain.SeedWork;
-using ProductServer.Infrastructure.Queries;
 using ProductServer.Infrastructure.Repositories;
 using ProductServer.Infrastructure.SeedWork;
+using ProductServer.Infrastructure.Services;
 
 namespace ProductServer.Infrastructure
 {
@@ -22,7 +22,7 @@ namespace ProductServer.Infrastructure
             services.AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>();
 
             services.AddRepositories();
-            services.AddQueries();
+            services.AddServices();
 
             return services;
         }
@@ -31,9 +31,9 @@ namespace ProductServer.Infrastructure
         {
             services.AddScoped<IProductRepository, ProductRepository>();
         }
-        private static void AddQueries(this IServiceCollection services)
+        private static void AddServices(this IServiceCollection services)
         {
-            services.AddTransient<IProductQueries, ProductQueries>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         private static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
