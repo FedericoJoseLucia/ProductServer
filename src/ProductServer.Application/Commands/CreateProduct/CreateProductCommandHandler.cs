@@ -22,7 +22,7 @@ namespace ProductServer.Application.Commands.CreateProduct
             if (exists)
                 return CommandResult.Error(Resources.Application.ProductExists);
 
-            Product aggregate = new(request.Id, request.Denomination, request.Price);
+            Product aggregate = new(request.Id, request.ExternalCode, request.Denomination, request.Price);
 
             productRepository.Add(aggregate);
 

@@ -16,7 +16,7 @@ namespace ProductServer.Infrastructure.Repositories
 
         public IUnitOfWork UnitOfWork => dbContext;
 
-        public void Add(Product product, CancellationToken cancellationToken = default)
+        public void Add(Product product)
         {
             dbContext.Products.Add(product);
         }

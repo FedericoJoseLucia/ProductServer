@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductServer.API.Models;
 using ProductServer.Application.Commands.CreateProduct;
 using ProductServer.Application.Commands.UpdateProduct;
+using ProductServer.Application.Queries.GetMasterProductById;
 using ProductServer.Application.Queries.GetProductById;
 using ProductServer.Application.Services.ProductService;
 
@@ -60,15 +61,33 @@ namespace ProductServer.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet(nameof(GetById))]
+        [HttpGet($"{nameof(GetById)}/{{id:guid}}")]
         [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)]
         [Produces(System.Net.Mime.MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ProductDto>> GetById([FromQuery] Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<ProductDto>> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var query = new GetProductByIdQuery(id);
+
+            var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
+
+            if(response is not null)
+                return Ok(response);
+
+            return NotFound();
+        }
+
+        [HttpGet($"{nameof(GetById)}/master/{{id:guid}}")]
+        [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)]
+        [Produces(System.Net.Mime.MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<MasterProductDto>> GetMasterById([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetMasterProductByIdQuery(id);
 
             var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
 

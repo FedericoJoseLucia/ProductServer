@@ -120,6 +120,9 @@
   <data name="DenominationIsEmpty" xml:space="preserve">
     <value>Denomination is empty</value>
   </data>
+  <data name="InvalidExternalCode" xml:space="preserve">
+    <value>External code must be between 1 and 99</value>
+  </data>
   <data name="PriceIsLessThanZero" xml:space="preserve">
     <value>Price is less than zero</value>
   </data>

@@ -70,6 +70,15 @@ namespace ProductServer.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External code must be between 1 and 99.
+        /// </summary>
+        public static string InvalidExternalCode {
+            get {
+                return ResourceManager.GetString("InvalidExternalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price is less than zero.
         /// </summary>
         public static string PriceIsLessThanZero {

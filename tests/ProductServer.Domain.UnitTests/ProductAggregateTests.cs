@@ -8,6 +8,7 @@ namespace ProductServer.Domain.UnitTests
     public class ProductAggregateTests
     {
         private static readonly Guid id = new("D84B82A5-7037-467C-A939-D39D5AE5CAE8");
+        private const int externalCode = 5;
         private const string denomination = "test_product";
         private static readonly decimal price = 123;
 
@@ -15,7 +16,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_ShouldBuild()
         {
             // Act
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
 
             // Assert
             product.Should().NotBeNull();
@@ -30,7 +31,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_ShouldUpdateDenomination_WithValidDenomination(string newDenomination)
         {
             // Arrange
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
 
             // Act
             product.UpdateDenomination(newDenomination);
@@ -46,7 +47,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_ShouldUpdatePrice_WithValidPrice(decimal newPrice)
         {
             // Arrange
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
 
             // Act
             product.UpdatePrice(newPrice);
@@ -59,7 +60,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_ShouldUpdateState_WithValidState()
         {
             // Arrange
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
             ProductState newState = ProductState.Disabled;
 
             // Act
@@ -74,7 +75,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_UpdateDenomination_ShouldThrow_WithInvalidDenomination(string newDenomination)
         {
             // Arrange
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
             var action = () => product.UpdateDenomination(newDenomination);
 
             // Assert
@@ -86,7 +87,7 @@ namespace ProductServer.Domain.UnitTests
         public void Product_UpdatePrice_ShouldThrow_WithInvalidPrice(decimal newPrice)
         {
             // Arrange
-            Product product = new(id, denomination, price);
+            Product product = new(id, externalCode, denomination, price);
             var action = () => product.UpdatePrice(newPrice);
 
             // Assert

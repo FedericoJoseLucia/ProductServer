@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProductServer.API.Controllers;
 using ProductServer.API.Models;
-using ProductServer.Application.Queries.Product;
+using ProductServer.Application.Queries.GetMasterProductById;
 using ProductServer.Application.SeedWork;
+using ProductServer.Application.Services.ProductService;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace ProductServer.API.UnitTests
     public class ProductControllerTests
     {
         private static readonly Guid id = new("D84B82A5-7037-467C-A939-D39D5AE5CAE8");
+        private const int externalCode = 5;
         private const string denomination = "test_product";
         private static readonly decimal price = 123;
         private const int stateId = 1;
@@ -104,7 +106,7 @@ namespace ProductServer.API.UnitTests
         public async Task GetById_ShouldSucceed()
         {
             // Arrange
-            ProductDto dto = new(id, denomination, price, (ProductDto.ProductState)stateId);
+            ProductDto dto = new(id, externalCode, denomination, price, (ProductDto.ProductState)stateId);
             ISender mediator = GetMockedMediatrInstanceWithCustomResult(dto);
             ProductController controller = new(mediator);
 
@@ -136,6 +138,45 @@ namespace ProductServer.API.UnitTests
 
             // Assert
             var actionResult = Assert.IsType<ActionResult<ProductDto>>(result);
+            Assert.IsType<NotFoundResult>(actionResult.Result);
+        }
+
+        [Fact]
+        public async Task GetByIdMaster_ShouldSucceed()
+        {
+            // Arrange
+            MasterProductDto dto = new(id, externalCode, denomination, price, (MasterProductDto.ProductState)stateId, null, null, null, null);
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(dto);
+            ProductController controller = new(mediator);
+
+            // Act
+            var result = await controller.GetMasterById(id, CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<MasterProductDto>>(result);
+            var objectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            var productFound = Assert.IsType<MasterProductDto>(objectResult.Value);
+
+            productFound.Should().NotBeNull();
+            productFound.Id.Should().Be(id);
+            productFound.Denomination.Should().Be(denomination);
+            productFound.Price.Should().Be(price);
+            productFound.State.Should().Be((MasterProductDto.ProductState)stateId);
+        }
+
+        [Fact]
+        public async Task GetByIdMaster_ShouldFail()
+        {
+            // Arrange
+            MasterProductDto? dto = null;
+            ISender mediator = GetMockedMediatrInstanceWithCustomResult(dto);
+            ProductController controller = new(mediator);
+
+            // Act
+            var result = await controller.GetMasterById(Guid.NewGuid(), CancellationToken.None);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<MasterProductDto>>(result);
             Assert.IsType<NotFoundResult>(actionResult.Result);
         }
 
