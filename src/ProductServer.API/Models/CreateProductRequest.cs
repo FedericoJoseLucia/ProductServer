@@ -3,6 +3,7 @@
     public class CreateProductRequest
     {
         public Guid Id { get; set; }
+        public int ExternalCode { get; set; }
         public string? Denomination { get; set; }
         public decimal Price { get; set; }
     }

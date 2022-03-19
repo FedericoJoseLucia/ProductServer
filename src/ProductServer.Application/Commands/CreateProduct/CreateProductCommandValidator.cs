@@ -9,6 +9,8 @@ namespace ProductServer.Application.Commands.CreateProduct
             RuleFor(x => x.Id).NotNull();
             RuleFor(x => x.Id).NotEmpty();
 
+            RuleFor(x => x.ExternalCode).InclusiveBetween(1, 99);
+
             RuleFor(x => x.Denomination).NotNull();
             RuleFor(x => x.Denomination).NotEmpty();
             RuleFor(x => x.Denomination).MaximumLength(100);

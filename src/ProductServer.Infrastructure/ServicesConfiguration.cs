@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductServer.Application.Services.ProductExternalServerService;
 using ProductServer.Application.Services.ProductService;
 using ProductServer.Domain.Aggregates.Product;
 using ProductServer.Domain.SeedWork;
@@ -23,6 +24,7 @@ namespace ProductServer.Infrastructure
 
             services.AddRepositories();
             services.AddServices();
+            services.AddHttpClients(configuration);
 
             return services;
         }
@@ -31,15 +33,27 @@ namespace ProductServer.Infrastructure
         {
             services.AddScoped<IProductRepository, ProductRepository>();
         }
+
         private static void AddServices(this IServiceCollection services)
         {
-            services.AddTransient<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
+        }
+        private static void AddHttpClients(this IServiceCollection services, IConfiguration configuration)
+        {
+            ProductExternalServerAPIOptions options = configuration
+                .GetSection(ProductExternalServerAPIOptions.ConfigurationKey)
+                .Get<ProductExternalServerAPIOptions>();
+
+            services.AddHttpClient<IProductExternalServerService, ProductExternalServerService>(x => x.BaseAddress = options.BaseAddressUri);
         }
 
         private static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<SqlServerOptions>(
                 configuration.GetSection(SqlServerOptions.ConfigurationKey).Bind);
+
+            services.Configure<ProductExternalServerAPIOptions>(
+                configuration.GetSection(ProductExternalServerAPIOptions.ConfigurationKey).Bind);
         }
 
         private static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
