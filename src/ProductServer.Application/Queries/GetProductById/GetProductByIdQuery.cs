@@ -1,6 +1,7 @@
 ﻿using ProductServer.Application.SeedWork;
+using ProductServer.Application.Services.ProductService;
 
-namespace ProductServer.Application.Queries.Product
+namespace ProductServer.Application.Queries.GetProductById
 {
     public class GetProductByIdQuery : IQuery<ProductDto?>
     {

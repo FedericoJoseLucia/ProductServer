@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProductServer.API.Models;
 using ProductServer.Application.Commands.CreateProduct;
 using ProductServer.Application.Commands.UpdateProduct;
-using ProductServer.Application.Queries.Product;
+using ProductServer.Application.Queries.GetProductById;
+using ProductServer.Application.Services.ProductService;
 
 namespace ProductServer.API.Controllers
 {
@@ -59,7 +60,7 @@ namespace ProductServer.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpPut(nameof(GetById))]
+        [HttpGet(nameof(GetById))]
         [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)]
         [Produces(System.Net.Mime.MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -71,10 +72,10 @@ namespace ProductServer.API.Controllers
 
             var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
 
-            if(response is null)
-                return NotFound();
+            if(response is not null)
+                return Ok(response);
 
-            return Ok(response);
+            return NotFound();
         }
     }
 }

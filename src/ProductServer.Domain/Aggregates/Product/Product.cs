@@ -1,4 +1,5 @@
-﻿using ProductServer.Domain.SeedWork;
+﻿using ProductServer.Domain.Aggregates.Product.DomainEvents;
+using ProductServer.Domain.SeedWork;
 
 namespace ProductServer.Domain.Aggregates.Product
 {
@@ -14,6 +15,8 @@ namespace ProductServer.Domain.Aggregates.Product
             Price = price;
             CreatedDateUtc = DateTime.UtcNow;
             State = ProductState.Enabled;
+
+            AddDomainEvent(new ProductCreatedEvent(Id, Denomination));
         }
 
         public string Denomination { get; private set; }
