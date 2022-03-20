@@ -12,15 +12,18 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ProductServer.Application\ProductServer.Application.csproj" />
     <ProjectReference Include="..\ProductServer.Infrastructure\ProductServer.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+  	<InternalsVisibleTo Include="ProductServer.IntegrationTests" />
   </ItemGroup>
 
 </Project>

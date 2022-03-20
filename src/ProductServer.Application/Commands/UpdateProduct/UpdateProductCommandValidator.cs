@@ -17,7 +17,7 @@ namespace ProductServer.Application.Commands.UpdateProduct
 
             When(x => x.Price is not null, () =>
             {
-                RuleFor(x => x.Price).LessThan(0);
+                RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
             });
         }
     }

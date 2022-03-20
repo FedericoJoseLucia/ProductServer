@@ -67,31 +67,35 @@ namespace ProductServer.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ProductDto>> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<Product>> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var query = new GetProductByIdQuery(id);
 
-            var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
+            var result = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
 
-            if(response is not null)
+            var response = result?.Adapt<Product>();
+
+            if (response is not null)
                 return Ok(response);
 
             return NotFound();
         }
 
-        [HttpGet($"{nameof(GetById)}/master/{{id:guid}}")]
+        [HttpGet($"{nameof(GetById)}/Master/{{id:guid}}")]
         [Consumes(System.Net.Mime.MediaTypeNames.Application.Json)]
         [Produces(System.Net.Mime.MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<MasterProductDto>> GetMasterById([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<MasterProduct>> GetMasterById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var query = new GetMasterProductByIdQuery(id);
 
-            var response = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
+            var result = await mediator.Send(query, cancellationToken).ConfigureAwait(false);
 
-            if(response is not null)
+            var response = result?.Adapt<MasterProduct>();
+
+            if (response is not null)
                 return Ok(response);
 
             return NotFound();
