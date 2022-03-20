@@ -68,4 +68,4 @@ The "appsettings.json" file contains configuration settings
 
 Federico Jose Lucia - federicojoselucia@gmail.com
 
-Project Link: [https://github.com/FedericoJoseLucia/productServer](https://github.com/FedericoJoseLucia/productServer)
+Project Link: [https://github.com/FedericoJoseLucia/productServer](https://github.com/FedericoJoseLucia/ProductServer)
