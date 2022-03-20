@@ -6,7 +6,7 @@ using ProductServer.Application;
 using ProductServer.Infrastructure;
 using ProductServer.Infrastructure.Bootstrap;
 
-Logger logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+Logger logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 try
 {

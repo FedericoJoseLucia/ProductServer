@@ -19,7 +19,7 @@ namespace ProductServer.API.Middleware
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "UNEXPECTED ERROR" + "{newLine}", Environment.NewLine);
+                logger.LogError(ex, "UNEXPECTED ERROR");
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
         }

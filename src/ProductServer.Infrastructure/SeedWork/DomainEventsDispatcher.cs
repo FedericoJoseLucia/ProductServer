@@ -40,7 +40,7 @@ namespace ProductServer.Infrastructure.SeedWork
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "DOMAIN EVENT {domainEventName} DISPATCH FAILED; PARAMETER: {@domainEventData}{newLine}", domainEventName, domainEvent, Environment.NewLine);
+                    logger.LogError(ex, "DOMAIN EVENT {domainEventName} DISPATCH FAILED; PARAMETER: {@domainEventData}", domainEventName, domainEvent);
                 }
             }
         }

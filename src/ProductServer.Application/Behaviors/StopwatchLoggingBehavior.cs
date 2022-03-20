@@ -29,7 +29,7 @@ namespace ProductServer.Application.Behaviors
 
         private void LogRequestExecutionTime(long miliseconds)
         {
-            logger.LogDebug("REQUEST {requestName} FINISHED RUNNING; TIME TAKEN: {@miliseconds}", typeof(TRequest).Name, miliseconds);
+            logger.LogInformation("REQUEST {requestName} FINISHED RUNNING; TIME TAKEN: {@miliseconds}ms", typeof(TRequest).Name, miliseconds);
         }
     }
 }
