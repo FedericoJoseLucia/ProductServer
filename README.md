@@ -32,6 +32,12 @@ The project was built using coding patterns as Domain Driver Desing, Mediator, C
 <!-- IMPLEMENTATION DETAILS -->
 ## Implementation Details
 
+Endpoints:
+- POST: /api/Product/Create
+- PUT: /api/Product/Update
+- GET: /api/Product/GetById/{id}
+- GET: /api/Product/GetById/Master/{id}
+
 The chosen database engine is SQL Server, using Entity Framework Core as ORM.
 
 Create and Update operations have custom validations (made with FluentValidations library) on the application layer. Any other
