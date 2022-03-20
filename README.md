@@ -2,7 +2,7 @@
 
   <p align="center">
     A sample project made to demonstrate multiple coding patters, best practices and technology usages.
-    Written on c# with .Net framework.
+    Written on C# with .Net framework.
 </p>
 
 
