@@ -2,13 +2,13 @@
 {
     public class LastCreatedProductDto
     {
-        public LastCreatedProductDto(Guid id, string denomination)
+        public LastCreatedProductDto(Guid id, int externalCode)
         {
             Id = id;
-            Denomination = denomination;
+            ExternalCode = externalCode;
         }
 
         public Guid Id { get; private set; }
-        public string Denomination { get; private set; }
+        public int ExternalCode { get; private set; }
     }
 }

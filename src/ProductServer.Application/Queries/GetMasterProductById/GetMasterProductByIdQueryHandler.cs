@@ -40,7 +40,7 @@ namespace ProductServer.Application.Queries.GetMasterProductById
                 price: product.Price, 
                 state: (MasterProductDto.ProductState)product.State,
                 lastCreatedProductId: lastCreatedProduct?.Id,
-                lastCreatedProductDenomination: lastCreatedProduct?.Denomination,
+                lastCreatedProductExternalCode: lastCreatedProduct?.ExternalCode,
                 department: productExternalData?.Department,
                 stock: productExternalData?.Stock);
         }

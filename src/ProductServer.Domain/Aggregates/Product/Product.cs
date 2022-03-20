@@ -18,7 +18,7 @@ namespace ProductServer.Domain.Aggregates.Product
             CreatedDateUtc = DateTime.UtcNow;
             State = ProductState.Enabled;
 
-            AddDomainEvent(new ProductCreatedEvent(Id, Denomination));
+            AddDomainEvent(new ProductCreatedEvent(Id, ExternalCode));
         }
 
         public int ExternalCode { get; private set; }

@@ -9,7 +9,7 @@
         public ProductState State { get; set; }
 
         public Guid? LastCreatedProductId { get; set; }
-        public string? LastCreatedProductDenomination { get; set; }
+        public int? LastCreatedProductExternalCode { get; set; }
 
         public string? Department { get; set; }
         public int? Stock { get; set; }

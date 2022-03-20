@@ -2,7 +2,7 @@
 {
     public class MasterProductDto
     {
-        public MasterProductDto(Guid id, int externalCode, string denomination, decimal price, ProductState state, Guid? lastCreatedProductId, string? lastCreatedProductDenomination, string? department, int? stock)
+        public MasterProductDto(Guid id, int externalCode, string denomination, decimal price, ProductState state, Guid? lastCreatedProductId, int? lastCreatedProductExternalCode, string? department, int? stock)
         {
             Id = id;
             ExternalCode = externalCode;
@@ -10,7 +10,7 @@
             Price = price;
             State = state;
             LastCreatedProductId = lastCreatedProductId;
-            LastCreatedProductDenomination = lastCreatedProductDenomination;
+            LastCreatedProductExternalCode = lastCreatedProductExternalCode;
             Department = department;
             Stock = stock;
         }
@@ -22,7 +22,7 @@
         public ProductState State { get; private set; }
 
         public Guid? LastCreatedProductId { get; private set; }
-        public string? LastCreatedProductDenomination { get; private set; }
+        public int? LastCreatedProductExternalCode { get; private set; }
 
         public string? Department { get; private set; }
         public int? Stock { get; private set; }

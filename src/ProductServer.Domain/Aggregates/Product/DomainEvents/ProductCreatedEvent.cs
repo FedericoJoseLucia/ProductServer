@@ -4,13 +4,13 @@ namespace ProductServer.Domain.Aggregates.Product.DomainEvents
 {
     public class ProductCreatedEvent : INotification
     {
-        public ProductCreatedEvent(Guid id, string denomination)
+        public ProductCreatedEvent(Guid id, int externalCode)
         {
             Id = id;
-            Denomination = denomination;
+            ExternalCode = externalCode;
         }
 
         public Guid Id { get; private set; }
-        public string Denomination { get; private set; }
+        public int ExternalCode { get; private set; }
     }
 }
