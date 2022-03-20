@@ -71,7 +71,7 @@ namespace ProductServer.Infrastructure.Services
             return await dbContext.Products
                 .AsNoTracking()
                 .OrderByDescending(p => p.CreatedDateUtc)
-                .Select(x => new LastCreatedProductDto(x.Id, x.Denomination))
+                .Select(x => new LastCreatedProductDto(x.Id, x.ExternalCode))
                 .FirstOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
         }

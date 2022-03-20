@@ -76,7 +76,7 @@ namespace ProductServer.IntegrationTests
 
             // Cached properties
             result!.LastCreatedProductId.Should().NotBeNull().And.Be(productId_2);
-            result!.LastCreatedProductDenomination.Should().NotBeNull().And.Be(productDenom_2);
+            result!.LastCreatedProductExternalCode.Should().NotBeNull().And.Be(productExtCode_2);
         }
 
         [Fact, TestOrder(3)]
@@ -107,7 +107,7 @@ namespace ProductServer.IntegrationTests
 
             // Cached properties
             result!.LastCreatedProductId.Should().NotBeNull().And.Be(productId_2);
-            result!.LastCreatedProductDenomination.Should().NotBeNull().And.Be(productDenom_2);
+            result!.LastCreatedProductExternalCode.Should().NotBeNull().And.Be(productExtCode_2);
         }
 
         private async Task CreateProductAsync(Guid id, int externalCode, string denomination, decimal price)

@@ -22,7 +22,7 @@ namespace ProductServer.Application.EventHandlers
 
             try
             {
-                await lastCreatedProductService.WriteToCacheAtomicallyAsync(new(notification.Id, notification.Denomination), cancellationToken).ConfigureAwait(false);
+                await lastCreatedProductService.WriteToCacheAtomicallyAsync(new(notification.Id, notification.ExternalCode), cancellationToken).ConfigureAwait(false);
 
                 LogEventHandledSuccessfully(notification);
             }
