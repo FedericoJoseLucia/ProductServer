@@ -26,7 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The project was built using coding patterns as Domain Driver Desing, Mediator, CQRS, and Event Sourcing. It exposes a REST API with Create, Update, GetById and GetById (Master) operations.
+The project was built using coding patterns as Domain Driver Desing, Mediator, CQRS, Test Driven Development, and Event Sourcing. It exposes a REST API with Create, Update, GetById and GetById (Master) operations.
 
 
 <!-- IMPLEMENTATION DETAILS -->
