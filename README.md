@@ -45,8 +45,8 @@ unexpected error will be catched by an exception middleware located on the API l
 
 On Create, the product aggregate publishes a domain event (using mediatr notifications). This event is handled in the application layer where the product model is cached for future GetById (Master) requests. 
 
-The GetById operation returns some basic properties of the product model.
-The GetById (Master) operation returns those same properties but also adds the last created product (catched) id and external code and an external service product stock and department.
+The GetById operation returns a basic product model.
+The GetById (Master) operation returns that same model and also adds the last created product (catched) id and external code and an external service product stock and department.
 
 The external service was mocked easily with mockapi.io. For security reasons the endpoint isn't pushed.
 
