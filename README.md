@@ -50,7 +50,11 @@ The GetById (Master) operation returns those same properties but also adds the l
 
 The external service was mocked easily with mockapi.io. For security reasons the endpoint isn't pushed.
 
+Command execution is timed and logged to a custom file included with the rest of the log files in the logging directory, customizable by replacing the appsettings.json file.
+
 The seedwork folders located around the project include common cross-project reusable files, some from microsoft docs, others custom written.
+
+
 
 The project development was realized using a minimal GitFlow aproach (It's a small project), and Test Driven Development. In the tests folder you can find unit and integration tests made to test different functionalities.
 
@@ -60,7 +64,7 @@ The project development was realized using a minimal GitFlow aproach (It's a sma
 The "appsettings.json" file contains configuration settings
 1) Replace ConnectionStrings/SqlServerConnection with your SQL Server Connection String.
 2) Replace ProductExternalServerAPI/BaseAddress with your external service api uri.
-3) Replace LogDirectory with yo
+3) Replace LogDirectory with your desired logging directory
 4) Run!
 
 <!-- CONTACT -->
