@@ -37,7 +37,7 @@ namespace ProductServer.Infrastructure.Bootstrap
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "APPLYING DATABASE MIGRATIONS FAILED" + "{newLine}", Environment.NewLine);
+                    logger.LogError(ex, "APPLYING DATABASE MIGRATIONS FAILED");
                 }
 
                 await Task.Delay(3000, cancellationToken).ConfigureAwait(false);

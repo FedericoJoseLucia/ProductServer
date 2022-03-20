@@ -48,11 +48,10 @@ namespace ProductServer.Application.EventHandlers
         }
         private void LogEventException(Exception exception, INotification notification)
         {
-            logger.LogError(exception, "EVENT {eventName} HANDLING FAILED; HANDLER {handlerName}; PARAMETER: {@eventData}" + "{newLine}", 
+            logger.LogError(exception, "EVENT {eventName} HANDLING FAILED; HANDLER {handlerName}; PARAMETER: {@eventData}", 
                 nameof(ProductCreatedEvent), 
                 nameof(WhenProductCreatedWriteToCache), 
-                notification, 
-                Environment.NewLine);
+                notification);
         }
     }
 }
