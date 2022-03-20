@@ -15,7 +15,7 @@ namespace ProductServer.Application.Commands.CreateProduct
             RuleFor(x => x.Denomination).NotEmpty();
             RuleFor(x => x.Denomination).MaximumLength(100);
 
-            RuleFor(x => x.Price).LessThan(0);
+            RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
         }
     }
 }

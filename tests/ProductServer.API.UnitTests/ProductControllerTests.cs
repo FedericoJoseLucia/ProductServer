@@ -114,15 +114,15 @@ namespace ProductServer.API.UnitTests
             var result = await controller.GetById(id, CancellationToken.None);
 
             // Assert
-            var actionResult = Assert.IsType<ActionResult<ProductDto>>(result);
+            var actionResult = Assert.IsType<ActionResult<Product>>(result);
             var objectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-            var productFound = Assert.IsType<ProductDto>(objectResult.Value);
+            var productFound = Assert.IsType<Product>(objectResult.Value);
 
             productFound.Should().NotBeNull();
             productFound.Id.Should().Be(id);
             productFound.Denomination.Should().Be(denomination);
             productFound.Price.Should().Be(price);
-            productFound.State.Should().Be((ProductDto.ProductState)stateId);
+            productFound.State.Should().Be((ProductState)stateId);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace ProductServer.API.UnitTests
             var result = await controller.GetById(Guid.NewGuid(), CancellationToken.None);
 
             // Assert
-            var actionResult = Assert.IsType<ActionResult<ProductDto>>(result);
+            var actionResult = Assert.IsType<ActionResult<Product>>(result);
             Assert.IsType<NotFoundResult>(actionResult.Result);
         }
 
@@ -153,15 +153,15 @@ namespace ProductServer.API.UnitTests
             var result = await controller.GetMasterById(id, CancellationToken.None);
 
             // Assert
-            var actionResult = Assert.IsType<ActionResult<MasterProductDto>>(result);
+            var actionResult = Assert.IsType<ActionResult<MasterProduct>>(result);
             var objectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-            var productFound = Assert.IsType<MasterProductDto>(objectResult.Value);
+            var productFound = Assert.IsType<MasterProduct>(objectResult.Value);
 
             productFound.Should().NotBeNull();
             productFound.Id.Should().Be(id);
             productFound.Denomination.Should().Be(denomination);
             productFound.Price.Should().Be(price);
-            productFound.State.Should().Be((MasterProductDto.ProductState)stateId);
+            productFound.State.Should().Be((ProductState)stateId);
         }
 
         [Fact]
@@ -176,7 +176,7 @@ namespace ProductServer.API.UnitTests
             var result = await controller.GetMasterById(Guid.NewGuid(), CancellationToken.None);
 
             // Assert
-            var actionResult = Assert.IsType<ActionResult<MasterProductDto>>(result);
+            var actionResult = Assert.IsType<ActionResult<MasterProduct>>(result);
             Assert.IsType<NotFoundResult>(actionResult.Result);
         }
 

@@ -15,8 +15,8 @@ namespace ProductServer.Infrastructure.EntitiesConfiguration
 
             builder.OwnsOne(x => x.State, builder =>
             {
-                builder.Property(e => e.Id).HasColumnName("StateId");
-                builder.Property(e => e.Name).HasColumnName("StateName");
+                builder.Property(e => e.Id);
+                builder.Property(e => e.Name);                
             }).Navigation(x => x.State).IsRequired();
         }
     }

@@ -12,8 +12,8 @@ using ProductServer.Infrastructure.SeedWork;
 namespace ProductServer.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220317004323_init")]
-    partial class init
+    [Migration("20220320002200_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,9 @@ namespace ProductServer.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ExternalCode")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 8)
                         .HasColumnType("decimal(18,8)");
@@ -53,13 +56,11 @@ namespace ProductServer.Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("Id")
-                                .HasColumnType("int")
-                                .HasColumnName("StateId");
+                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("StateName");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("ProductId");
 

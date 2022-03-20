@@ -5,17 +5,19 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.API", "src\ProductServer.API\ProductServer.API.csproj", "{EBD4A07F-DFE3-4C99-AF69-692D69012306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.Infrastructure", "src\ProductServer.Infrastructure\ProductServer.Infrastructure.csproj", "{040FC9BF-94BA-467A-8634-F6AB35BAE881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.Infrastructure", "src\ProductServer.Infrastructure\ProductServer.Infrastructure.csproj", "{040FC9BF-94BA-467A-8634-F6AB35BAE881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.Domain", "src\ProductServer.Domain\ProductServer.Domain.csproj", "{8F972644-080F-4B02-881D-BCC88E1F1A6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.Domain", "src\ProductServer.Domain\ProductServer.Domain.csproj", "{8F972644-080F-4B02-881D-BCC88E1F1A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.Application", "src\ProductServer.Application\ProductServer.Application.csproj", "{3D1A2B81-73D2-4074-8AA6-50B10FA77D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.Application", "src\ProductServer.Application\ProductServer.Application.csproj", "{3D1A2B81-73D2-4074-8AA6-50B10FA77D1B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{746FCAC5-F2AC-4863-9252-706A222218BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.Domain.UnitTests", "tests\ProductServer.Domain.UnitTests\ProductServer.Domain.UnitTests.csproj", "{855C5B3D-0B27-4CD8-8B09-F22A6CA75BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.Domain.UnitTests", "tests\ProductServer.Domain.UnitTests\ProductServer.Domain.UnitTests.csproj", "{855C5B3D-0B27-4CD8-8B09-F22A6CA75BA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.API.UnitTests", "tests\ProductServer.API.UnitTests\ProductServer.API.UnitTests.csproj", "{1BC55EA4-F955-42F1-A337-C023843A5830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServer.API.UnitTests", "tests\ProductServer.API.UnitTests\ProductServer.API.UnitTests.csproj", "{1BC55EA4-F955-42F1-A337-C023843A5830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServer.IntegrationTests", "tests\ProductServer.IntegrationTests\ProductServer.IntegrationTests.csproj", "{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{1BC55EA4-F955-42F1-A337-C023843A5830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC55EA4-F955-42F1-A337-C023843A5830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC55EA4-F955-42F1-A337-C023843A5830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{855C5B3D-0B27-4CD8-8B09-F22A6CA75BA8} = {746FCAC5-F2AC-4863-9252-706A222218BB}
 		{1BC55EA4-F955-42F1-A337-C023843A5830} = {746FCAC5-F2AC-4863-9252-706A222218BB}
+		{2C6A1519-B44E-4F4C-B8FD-B87AFF7D602F} = {746FCAC5-F2AC-4863-9252-706A222218BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DA64558-8391-4744-A781-AE79FB3F930E}

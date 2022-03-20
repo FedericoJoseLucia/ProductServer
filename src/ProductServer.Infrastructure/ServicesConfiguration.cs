@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductServer.Application.Services.LastCreatedProductService;
 using ProductServer.Application.Services.ProductExternalServerService;
 using ProductServer.Application.Services.ProductService;
 using ProductServer.Domain.Aggregates.Product;
@@ -22,6 +23,8 @@ namespace ProductServer.Infrastructure
 
             services.AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>();
 
+            services.AddMemoryCache();
+
             services.AddRepositories();
             services.AddServices();
             services.AddHttpClients(configuration);
@@ -37,6 +40,7 @@ namespace ProductServer.Infrastructure
         private static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ILastCreatedProductService, LastCreatedProductService>();
         }
         private static void AddHttpClients(this IServiceCollection services, IConfiguration configuration)
         {

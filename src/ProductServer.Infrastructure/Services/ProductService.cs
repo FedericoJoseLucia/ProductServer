@@ -27,8 +27,9 @@ namespace ProductServer.Infrastructure.Services
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false);
             return await dbContext.Products
                 .AsNoTracking()
+                .Where(x => x.Id == id)
                 .Select(x => new ProductDto(x.Id, x.ExternalCode, x.Denomination, x.Price, (ProductDto.ProductState)x.State.Id))
-                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken)
+                .FirstOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
         }
     }

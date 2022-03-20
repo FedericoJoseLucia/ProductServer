@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using ProductServer.API.Middleware;
 
 namespace ProductServer
 {
@@ -11,10 +12,13 @@ namespace ProductServer
 
             services.AddEndpointsApiExplorer();
 
-            services.AddSwaggerGen(x =>
+            services.AddSwaggerGen(options =>
             {
-                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Product Server", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Product Server", Version = "v1" });
+                options.SupportNonNullableReferenceTypes();
             });
+
+            services.AddTransient<ExceptionMiddleware>();
         }
     }
 }
